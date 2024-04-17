@@ -1,0 +1,27 @@
+import re
+
+def process_text(text):
+    # 使用正则表达式将文本按照空行分割成多个部分
+    sections = re.split(r'\n\s*\n', text)
+    processed_text = ""
+    # 遍历每个部分
+    for section in sections:
+        # 使用正则表达式匹配第四个部分的地址，并删除姓名和电话
+        address = re.sub(r'^\d+\s+\d+\s+\S+\s+', '', section)
+        # 将处理后的地址加入到结果中
+        processed_text += address + '\n'
+    return processed_text
+
+# 读取文本文件
+with open('input.txt', 'r', encoding='utf-8') as file:
+    text = file.read()
+
+# 处理文本
+processed_text = process_text(text)
+
+# 输出处理后的文本
+print(processed_text)
+
+# 将处理后的文本写入到新文件中
+with open('output.txt', 'w', encoding='utf-8') as file:
+    file.write(processed_text)
